@@ -13,3 +13,4 @@ a.method = function ()[
 
 a(); // 出力結果hello
 a.method(); // 出力結果method
+console.log(a.prop); // 出力結果0 
