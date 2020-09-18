@@ -20,15 +20,15 @@
 // personのhelloというメソッドを他の変数にコピーすると挙動が変わる。
 // person.helloを変数refに代入する 。
 
-window.name = "John";
+// window.name = "John";
 
-const person = {
-    name: "Tom",
-    hello: function () {
-        console.log("Hello" + this.name);
-        a();
-    }
-}
+// const person = {
+//     name: "Tom",
+//     hello: function () {
+//         console.log("Hello" + this.name);
+//         a();
+//     }
+// }
 // const ref = person.hello;
 // ref();
 
@@ -38,10 +38,29 @@ const person = {
 // 関数として実行される場合、thisはグローバルオブジェクトを参照する。
 // 今回は後者。
 
-person.hello();
-function a() {
-    console.log("Hello" + this.name);
-}
+// person.hello();
+// function a() {
+//     console.log("Hello" + this.name);
+// }
 
 // ただ単に関数の中でthisを読んだ場合は、Hello John
-// 
+
+
+// コールバック関数とthis
+
+window.name = "John";
+
+const person = {
+    name: "Tom",
+    hello: function () {
+        console.log("Hello" + this.name);
+    }
+}
+
+person.hello();
+
+function fn(ref) {
+    ref();
+}
+
+fn(person.hello);
