@@ -35,3 +35,54 @@ const b = _ => "hello ";
 // 無名関数はthis, arguments, new, prototypeが使える。
 // アロー関数はthis, arguments, new, prototypeが使えない。
 // アロー関数は基本的に無名関数の簡略記法であるが、厳密に機能が同じというわけではない。
+
+
+// アロー関数とthisの関係
+
+window.name = "John";
+
+const person = {
+    name: "Tom",
+    hello: function () {
+        console.log("Hello " + this.name);
+    }
+}
+
+person.hello();  // Hello Tom
+
+// アロー関数に変換すると、、、
+window.name = "John";
+
+const person = {
+    name: "Tom",
+    hello: () => {
+        console.log("Hello " + this.name);
+    }
+}
+
+person.hello();  //Hello John
+
+// アロー関数はそのコンテキストないでthisを取らないので、呼び出し元がオブジェクトであっても、
+// 関数であってもそのコンテキストのthisは無視される。　
+
+
+
+window.name = "John";
+
+const a = () => console.log("Bye " + this.name);
+
+const person = {
+    name: "Tom",
+    hello() => {   // 無名関数として定義されている。
+    console.log("Hello " + this.name);
+    a();
+}
+}
+
+person.hello();  //Hello Tom & Bye John
+
+// 解説
+// a();は72行目が呼び出されるわけだが、72行目のレキシカルスコープはグローバルスコープになるため、
+// このグローバルスコープのthisはwindowオブジェクトになり、nameプロパティのJohnが取れてくる。
+
+
